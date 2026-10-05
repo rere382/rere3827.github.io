@@ -1,0 +1,1883 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>RETAJ — Digital Artist / Creative Technologist</title>
+
+<meta name="description"
+content="Retaj — digital artist, 3D designer and creative technologist exploring art, technology and interactive experiences.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Syne:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --black:#030305;
+  --white:#f5f5f2;
+  --muted:#8c8c95;
+  --cyan:#69f7ff;
+  --violet:#8667ff;
+  --pink:#ff48c8;
+  --line:rgba(255,255,255,.12);
+}
+
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
+
+html{
+  scroll-behavior:smooth;
+  background:var(--black);
+}
+
+body{
+  background:var(--black);
+  color:var(--white);
+  font-family:"Space Grotesk",sans-serif;
+  overflow-x:hidden;
+  cursor:none;
+}
+
+a{
+  color:inherit;
+  text-decoration:none;
+}
+
+button{
+  font:inherit;
+}
+
+::selection{
+  background:var(--cyan);
+  color:#000;
+}
+
+/* =========================
+   GLOBAL
+========================= */
+
+#experience{
+  position:relative;
+  z-index:1;
+}
+
+.noise{
+  position:fixed;
+  inset:-50%;
+  z-index:100;
+  pointer-events:none;
+  opacity:.055;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.8'/%3E%3C/svg%3E");
+  animation:noiseMove .2s steps(2) infinite;
+}
+
+@keyframes noiseMove{
+  0%{transform:translate(0,0)}
+  25%{transform:translate(2%,-2%)}
+  50%{transform:translate(-2%,2%)}
+  75%{transform:translate(2%,2%)}
+  100%{transform:translate(-2%,-2%)}
+}
+
+.grid-bg{
+  position:fixed;
+  inset:0;
+  z-index:-3;
+  opacity:.18;
+  background-image:
+    linear-gradient(rgba(255,255,255,.035) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(255,255,255,.035) 1px,transparent 1px);
+  background-size:70px 70px;
+  mask-image:linear-gradient(to bottom,black,transparent 80%);
+}
+
+.cursor{
+  position:fixed;
+  width:9px;
+  height:9px;
+  border-radius:50%;
+  background:white;
+  z-index:999;
+  pointer-events:none;
+  mix-blend-mode:difference;
+  transform:translate(-50%,-50%);
+}
+
+.cursor-ring{
+  position:fixed;
+  width:42px;
+  height:42px;
+  border:1px solid rgba(255,255,255,.6);
+  border-radius:50%;
+  z-index:998;
+  pointer-events:none;
+  transform:translate(-50%,-50%);
+  transition:
+    width .25s ease,
+    height .25s ease,
+    border-color .25s ease,
+    background .25s ease;
+}
+
+.cursor-ring.big{
+  width:75px;
+  height:75px;
+  border-color:var(--cyan);
+  background:rgba(105,247,255,.05);
+}
+
+/* =========================
+   INTRO
+========================= */
+
+#intro{
+  position:fixed;
+  inset:0;
+  z-index:500;
+  background:#010102;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  overflow:hidden;
+  transition:
+    opacity 1.2s cubic-bezier(.77,0,.18,1),
+    visibility 1.2s;
+}
+
+#intro.hidden{
+  opacity:0;
+  visibility:hidden;
+  pointer-events:none;
+}
+
+.intro-grid{
+  position:absolute;
+  inset:0;
+  background:
+    linear-gradient(rgba(255,255,255,.035) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(255,255,255,.035) 1px,transparent 1px);
+  background-size:80px 80px;
+  transform:perspective(500px) rotateX(55deg) scale(1.8);
+  transform-origin:center bottom;
+  opacity:.35;
+}
+
+.intro-content{
+  position:relative;
+  z-index:3;
+  text-align:center;
+}
+
+.intro-small{
+  font-size:10px;
+  letter-spacing:.35em;
+  text-transform:uppercase;
+  color:#777;
+  margin-bottom:25px;
+}
+
+.intro-name{
+  font-family:"Syne",sans-serif;
+  font-size:clamp(5rem,17vw,16rem);
+  line-height:.72;
+  letter-spacing:-.09em;
+  font-weight:800;
+  position:relative;
+}
+
+.intro-name::after{
+  content:"RETAJ.";
+  position:absolute;
+  inset:0;
+  color:transparent;
+  -webkit-text-stroke:1px rgba(255,255,255,.18);
+  transform:translate(8px,8px);
+  z-index:-1;
+}
+
+.intro-sub{
+  margin-top:45px;
+  font-size:11px;
+  letter-spacing:.22em;
+  text-transform:uppercase;
+  color:#777;
+}
+
+.enter{
+  margin-top:45px;
+  border:1px solid rgba(255,255,255,.3);
+  background:transparent;
+  color:white;
+  padding:17px 30px;
+  letter-spacing:.18em;
+  text-transform:uppercase;
+  font-size:10px;
+  cursor:none;
+  position:relative;
+  overflow:hidden;
+  transition:.4s;
+}
+
+.enter::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:white;
+  transform:translateX(-101%);
+  transition:.5s;
+  z-index:-1;
+}
+
+.enter:hover{
+  color:#000;
+}
+
+.enter:hover::before{
+  transform:translateX(0);
+}
+
+/* =========================
+   3D HERO
+========================= */
+
+#hero{
+  height:100vh;
+  min-height:700px;
+  position:relative;
+  overflow:hidden;
+}
+
+#three-container{
+  position:absolute;
+  inset:0;
+  z-index:-2;
+}
+
+.hero-vignette{
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  background:
+    radial-gradient(circle at center,transparent 20%,rgba(0,0,0,.25) 65%,rgba(0,0,0,.85)),
+    linear-gradient(to bottom,rgba(0,0,0,.15),transparent 30%,rgba(0,0,0,.8));
+}
+
+.hero-top{
+  position:absolute;
+  top:30px;
+  left:40px;
+  right:40px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  z-index:5;
+}
+
+.logo{
+  font-family:"Syne",sans-serif;
+  font-size:20px;
+  font-weight:800;
+  letter-spacing:-.08em;
+}
+
+.logo span{
+  color:var(--cyan);
+}
+
+.status{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  font-size:9px;
+  letter-spacing:.18em;
+  color:#777;
+  text-transform:uppercase;
+}
+
+.status-dot{
+  width:6px;
+  height:6px;
+  border-radius:50%;
+  background:#69ff9a;
+  box-shadow:0 0 15px #69ff9a;
+}
+
+.hero-info{
+  position:absolute;
+  left:40px;
+  bottom:42px;
+  z-index:5;
+}
+
+.coordinates{
+  font-size:9px;
+  letter-spacing:.18em;
+  color:#666;
+  margin-bottom:18px;
+  text-transform:uppercase;
+}
+
+.hero-title{
+  font-family:"Syne",sans-serif;
+  font-size:clamp(4.5rem,11vw,11rem);
+  line-height:.78;
+  letter-spacing:-.09em;
+  font-weight:800;
+}
+
+.hero-title span{
+  display:block;
+}
+
+.hero-title .outline{
+  color:transparent;
+  -webkit-text-stroke:1px rgba(255,255,255,.5);
+}
+
+.hero-description{
+  margin-top:28px;
+  max-width:470px;
+  font-size:14px;
+  line-height:1.6;
+  color:#8d8d94;
+}
+
+.scroll-indicator{
+  position:absolute;
+  right:40px;
+  bottom:40px;
+  writing-mode:vertical-rl;
+  transform:rotate(180deg);
+  font-size:9px;
+  letter-spacing:.25em;
+  color:#777;
+  text-transform:uppercase;
+}
+
+/* =========================
+   NAV
+========================= */
+
+.nav{
+  position:fixed;
+  top:0;
+  left:0;
+  right:0;
+  z-index:50;
+  padding:28px 40px;
+  display:flex;
+  justify-content:flex-end;
+  pointer-events:none;
+}
+
+.nav-links{
+  display:flex;
+  gap:28px;
+  pointer-events:auto;
+}
+
+.nav-links a{
+  font-size:9px;
+  text-transform:uppercase;
+  letter-spacing:.2em;
+  color:#777;
+  transition:.3s;
+}
+
+.nav-links a:hover{
+  color:white;
+}
+
+/* =========================
+   SECTION
+========================= */
+
+.section{
+  position:relative;
+  padding:180px 7vw;
+  border-top:1px solid var(--line);
+}
+
+.section-label{
+  font-size:9px;
+  color:#666;
+  letter-spacing:.25em;
+  text-transform:uppercase;
+  margin-bottom:30px;
+}
+
+.section-heading{
+  font-family:"Syne",sans-serif;
+  font-size:clamp(4rem,10vw,10rem);
+  line-height:.8;
+  letter-spacing:-.09em;
+  font-weight:700;
+}
+
+.section-heading .dim{
+  color:#34343a;
+}
+
+.statement{
+  margin-top:80px;
+  max-width:1000px;
+  font-size:clamp(2rem,4vw,4.5rem);
+  line-height:1.03;
+  letter-spacing:-.05em;
+  font-weight:400;
+}
+
+.statement strong{
+  color:white;
+}
+
+.statement .accent{
+  color:var(--cyan);
+}
+
+/* =========================
+   WORK
+========================= */
+
+.work-section{
+  padding-top:120px;
+}
+
+.work-grid{
+  margin-top:100px;
+  display:grid;
+  grid-template-columns:repeat(12,1fr);
+  gap:25px;
+}
+
+.project{
+  position:relative;
+  min-height:570px;
+  overflow:hidden;
+  border:1px solid var(--line);
+  background:#08080b;
+  cursor:none;
+  transition:transform .5s ease,border-color .5s ease;
+}
+
+.project:hover{
+  transform:translateY(-10px);
+  border-color:rgba(105,247,255,.45);
+}
+
+.project:nth-child(1){
+  grid-column:span 7;
+}
+
+.project:nth-child(2){
+  grid-column:span 5;
+  margin-top:140px;
+}
+
+.project:nth-child(3){
+  grid-column:span 5;
+  margin-top:-80px;
+}
+
+.project:nth-child(4){
+  grid-column:span 7;
+}
+
+.project-art{
+  position:absolute;
+  inset:0;
+  overflow:hidden;
+}
+
+.project-art::before{
+  content:"";
+  position:absolute;
+  width:55%;
+  height:55%;
+  left:20%;
+  top:15%;
+  border-radius:50%;
+  background:radial-gradient(circle,rgba(105,247,255,.3),transparent 65%);
+  filter:blur(25px);
+  transition:1s;
+}
+
+.project:hover .project-art::before{
+  transform:scale(1.5);
+}
+
+.project-art.one{
+  background:
+    radial-gradient(circle at 50% 40%,#252f42,transparent 28%),
+    linear-gradient(135deg,#050609,#11131b);
+}
+
+.project-art.two{
+  background:
+    radial-gradient(circle at 60% 40%,rgba(134,103,255,.5),transparent 25%),
+    linear-gradient(135deg,#08070d,#151020);
+}
+
+.project-art.three{
+  background:
+    radial-gradient(circle at 45% 45%,rgba(255,72,200,.4),transparent 24%),
+    linear-gradient(135deg,#0b050c,#171018);
+}
+
+.project-art.four{
+  background:
+    radial-gradient(circle at 50% 40%,rgba(105,247,255,.3),transparent 20%),
+    linear-gradient(135deg,#050a0c,#101719);
+}
+
+.project-art::after{
+  content:"";
+  position:absolute;
+  width:180px;
+  height:240px;
+  left:50%;
+  top:45%;
+  transform:translate(-50%,-50%) rotate(25deg);
+  border:1px solid rgba(255,255,255,.25);
+  box-shadow:
+    0 0 80px rgba(105,247,255,.08),
+    inset 0 0 50px rgba(105,247,255,.04);
+  transition:1s cubic-bezier(.16,1,.3,1);
+}
+
+.project:nth-child(2) .project-art::after{
+  border-radius:50%;
+  width:260px;
+  height:260px;
+  transform:translate(-50%,-50%) rotate(0);
+}
+
+.project:nth-child(3) .project-art::after{
+  border-radius:12px;
+  transform:translate(-50%,-50%) rotate(-35deg);
+}
+
+.project:nth-child(4) .project-art::after{
+  width:300px;
+  height:130px;
+  border-radius:50%;
+}
+
+.project:hover .project-art::after{
+  transform:translate(-50%,-50%) rotate(140deg) scale(1.2);
+  border-color:rgba(105,247,255,.7);
+}
+
+.project-info{
+  position:absolute;
+  left:30px;
+  right:30px;
+  bottom:30px;
+  z-index:3;
+}
+
+.project-number{
+  font-size:9px;
+  color:#777;
+  letter-spacing:.2em;
+  margin-bottom:12px;
+}
+
+.project-title{
+  font-family:"Syne",sans-serif;
+  font-size:clamp(2rem,4vw,4rem);
+  line-height:.9;
+  letter-spacing:-.07em;
+}
+
+.project-type{
+  color:#888;
+  font-size:11px;
+  margin-top:12px;
+  letter-spacing:.12em;
+  text-transform:uppercase;
+}
+
+/* =========================
+   EXPERIMENTS
+========================= */
+
+.experiment-wrap{
+  margin-top:90px;
+  display:flex;
+  flex-wrap:wrap;
+  gap:12px;
+  max-width:1000px;
+}
+
+.experiment{
+  padding:18px 22px;
+  border:1px solid var(--line);
+  border-radius:100px;
+  color:#777;
+  font-size:11px;
+  letter-spacing:.08em;
+  transition:.4s;
+}
+
+.experiment:hover{
+  color:#000;
+  background:var(--cyan);
+  border-color:var(--cyan);
+  transform:translateY(-5px);
+}
+
+/* =========================
+   ABOUT
+========================= */
+
+.about-layout{
+  margin-top:100px;
+  display:grid;
+  grid-template-columns:1.2fr .8fr;
+  gap:100px;
+}
+
+.about-text{
+  font-size:clamp(1.5rem,3vw,3rem);
+  line-height:1.1;
+  letter-spacing:-.04em;
+}
+
+.about-text em{
+  color:var(--cyan);
+  font-style:normal;
+}
+
+.about-side{
+  border-top:1px solid var(--line);
+}
+
+.about-item{
+  padding:20px 0;
+  border-bottom:1px solid var(--line);
+}
+
+.about-item small{
+  display:block;
+  color:#555;
+  font-size:8px;
+  letter-spacing:.2em;
+  text-transform:uppercase;
+  margin-bottom:7px;
+}
+
+.about-item span{
+  color:#aaa;
+  font-size:13px;
+}
+
+/* =========================
+   CONTACT
+========================= */
+
+.contact-section{
+  min-height:90vh;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  overflow:hidden;
+}
+
+.contact-big{
+  font-family:"Syne",sans-serif;
+  font-size:clamp(5rem,15vw,16rem);
+  line-height:.7;
+  letter-spacing:-.11em;
+  font-weight:800;
+}
+
+.contact-big span{
+  display:block;
+}
+
+.contact-big .outline{
+  color:transparent;
+  -webkit-text-stroke:1px rgba(255,255,255,.4);
+}
+
+.contact-link{
+  margin-top:70px;
+  display:inline-block;
+  font-size:14px;
+  border-bottom:1px solid white;
+  padding-bottom:8px;
+  transition:.3s;
+}
+
+.contact-link:hover{
+  color:var(--cyan);
+  border-color:var(--cyan);
+}
+
+/* =========================
+   FOOTER
+========================= */
+
+footer{
+  border-top:1px solid var(--line);
+  padding:25px 40px;
+  display:flex;
+  justify-content:space-between;
+  color:#555;
+  font-size:9px;
+  letter-spacing:.12em;
+  text-transform:uppercase;
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media(max-width:800px){
+
+  body{
+    cursor:auto;
+  }
+
+  .cursor,
+  .cursor-ring{
+    display:none;
+  }
+
+  .nav{
+    padding:22px;
+  }
+
+  .nav-links{
+    gap:15px;
+  }
+
+  .nav-links a{
+    font-size:8px;
+  }
+
+  .hero-top{
+    left:22px;
+    right:22px;
+    top:22px;
+  }
+
+  .hero-info{
+    left:22px;
+    bottom:35px;
+  }
+
+  .hero-title{
+    font-size:18vw;
+  }
+
+  .hero-description{
+    max-width:320px;
+    font-size:12px;
+  }
+
+  .scroll-indicator{
+    display:none;
+  }
+
+  .section{
+    padding:110px 22px;
+  }
+
+  .section-heading{
+    font-size:20vw;
+  }
+
+  .statement{
+    margin-top:55px;
+    font-size:9vw;
+  }
+
+  .work-grid{
+    display:block;
+    margin-top:60px;
+  }
+
+  .project,
+  .project:nth-child(1),
+  .project:nth-child(2),
+  .project:nth-child(3),
+  .project:nth-child(4){
+    margin:0 0 20px;
+    min-height:470px;
+  }
+
+  .about-layout{
+    display:block;
+    margin-top:60px;
+  }
+
+  .about-side{
+    margin-top:60px;
+  }
+
+  .contact-big{
+    font-size:20vw;
+  }
+
+  footer{
+    padding:22px;
+    gap:20px;
+    flex-direction:column;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div class="noise"></div>
+<div class="grid-bg"></div>
+
+<div class="cursor"></div>
+<div class="cursor-ring"></div>
+
+<!-- =========================
+     OPENING
+========================= -->
+
+<div id="intro">
+
+  <div class="intro-grid"></div>
+
+  <div class="intro-content">
+
+    <div class="intro-small">
+      Digital artist · designer · creative technologist
+    </div>
+
+    <div class="intro-name">
+      RETAJ.
+    </div>
+
+    <div class="intro-sub">
+      Entering digital space
+    </div>
+
+    <button class="enter" id="enterButton">
+      Enter the experience
+    </button>
+
+  </div>
+
+</div>
+
+
+<div id="experience">
+
+<!-- =========================
+     NAVIGATION
+========================= -->
+
+<nav class="nav">
+
+  <div class="nav-links">
+    <a href="#work">Work</a>
+    <a href="#experiments">Experiments</a>
+    <a href="#about">About</a>
+    <a href="#contact">Contact</a>
+  </div>
+
+</nav>
+
+
+<!-- =========================
+     HERO
+========================= -->
+
+<section id="hero">
+
+  <div id="three-container"></div>
+
+  <div class="hero-vignette"></div>
+
+  <div class="hero-top">
+
+    <div class="logo">
+      RETAJ<span>.</span>
+    </div>
+
+    <div class="status">
+      <span class="status-dot"></span>
+      System online
+    </div>
+
+  </div>
+
+
+  <div class="hero-info">
+
+    <div class="coordinates">
+      29°22' N / 47°58' E · CREATIVE SYSTEM 001
+    </div>
+
+    <h1 class="hero-title">
+
+      <span>MAKE</span>
+
+      <span class="outline">
+        IDEAS
+      </span>
+
+      <span>REAL.</span>
+
+    </h1>
+
+    <p class="hero-description">
+      Digital artist, 3D designer and creative technologist
+      exploring the space between art, technology and
+      things that shouldn't exist yet.
+    </p>
+
+  </div>
+
+
+  <div class="scroll-indicator">
+    Scroll to explore ↓
+  </div>
+
+</section>
+
+
+<!-- =========================
+     STATEMENT
+========================= -->
+
+<section class="section">
+
+  <div class="section-label">
+    001 — Manifesto
+  </div>
+
+  <h2 class="section-heading">
+    NOT JUST<br>
+    <span class="dim">A PORTFOLIO.</span>
+  </h2>
+
+  <div class="statement">
+
+    I like ideas that start as a sketch,
+    become a <span class="accent">3D object</span>,
+    turn into an interaction,
+    and eventually become something
+    <strong>you can actually experience.</strong>
+
+  </div>
+
+</section>
+
+
+<!-- =========================
+     WORK
+========================= -->
+
+<section class="section work-section" id="work">
+
+  <div class="section-label">
+    002 — Selected work
+  </div>
+
+  <h2 class="section-heading">
+    WOR<span class="dim">K.</span>
+  </h2>
+
+
+  <div class="work-grid">
+
+    <article class="project">
+
+      <div class="project-art one"></div>
+
+      <div class="project-info">
+
+        <div class="project-number">
+          PROJECT 01
+        </div>
+
+        <h3 class="project-title">
+          3D<br>WORLD
+        </h3>
+
+        <div class="project-type">
+          Environment · Blender · Worldbuilding
+        </div>
+
+      </div>
+
+    </article>
+
+
+    <article class="project">
+
+      <div class="project-art two"></div>
+
+      <div class="project-info">
+
+        <div class="project-number">
+          PROJECT 02
+        </div>
+
+        <h3 class="project-title">
+          DESIGNED<br>OBJECT
+        </h3>
+
+        <div class="project-type">
+          Product · Form · 3D Design
+        </div>
+
+      </div>
+
+    </article>
+
+
+    <article class="project">
+
+      <div class="project-art three"></div>
+
+      <div class="project-info">
+
+        <div class="project-number">
+          PROJECT 03
+        </div>
+
+        <h3 class="project-title">
+          INTER<br>ACTIVE
+        </h3>
+
+        <div class="project-type">
+          Interaction · Games · Creative Code
+        </div>
+
+      </div>
+
+    </article>
+
+
+    <article class="project">
+
+      <div class="project-art four"></div>
+
+      <div class="project-info">
+
+        <div class="project-number">
+          PROJECT 04
+        </div>
+
+        <h3 class="project-title">
+          IDENTITY<br>× 3D
+        </h3>
+
+        <div class="project-type">
+          Branding · Digital Art · Experience
+        </div>
+
+      </div>
+
+    </article>
+
+  </div>
+
+</section>
+
+
+<!-- =========================
+     EXPERIMENTS
+========================= -->
+
+<section class="section" id="experiments">
+
+  <div class="section-label">
+    003 — Laboratory
+  </div>
+
+  <h2 class="section-heading">
+    EXPER<span class="dim">IMENTS.</span>
+  </h2>
+
+  <div class="experiment-wrap">
+
+    <div class="experiment">Blender studies</div>
+    <div class="experiment">3D modeling</div>
+    <div class="experiment">Animation</div>
+    <div class="experiment">Game worlds</div>
+    <div class="experiment">UX / UI</div>
+    <div class="experiment">Creative coding</div>
+    <div class="experiment">AR / VR</div>
+    <div class="experiment">Physical builds</div>
+    <div class="experiment">Interactive art</div>
+    <div class="experiment">Motion design</div>
+    <div class="experiment">Web experiments</div>
+    <div class="experiment">Things that shouldn't exist</div>
+
+  </div>
+
+</section>
+
+
+<!-- =========================
+     ABOUT
+========================= -->
+
+<section class="section" id="about">
+
+  <div class="section-label">
+    004 — About
+  </div>
+
+  <h2 class="section-heading">
+    WHO<br>
+    <span class="dim">AM I?</span>
+  </h2>
+
+
+  <div class="about-layout">
+
+    <div class="about-text">
+
+      I'm interested in the space between
+      <em>art, design and technology.</em>
+
+      I like making things with my hands,
+      building digital worlds,
+      designing interfaces,
+      experimenting with 3D,
+      and figuring out how technology
+      can become part of the artwork itself.
+
+    </div>
+
+
+    <div class="about-side">
+
+      <div class="about-item">
+        <small>Focus</small>
+        <span>Digital Art / 3D / Interaction</span>
+      </div>
+
+      <div class="about-item">
+        <small>Tools</small>
+        <span>Blender / Web / Creative Code</span>
+      </div>
+
+      <div class="about-item">
+        <small>Exploring</small>
+        <span>Games / AR / VR / UX</span>
+      </div>
+
+      <div class="about-item">
+        <small>Direction</small>
+        <span>Creative Technology</span>
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- =========================
+     CONTACT
+========================= -->
+
+<section class="section contact-section" id="contact">
+
+  <div class="section-label">
+    005 — Transmission
+  </div>
+
+  <div class="contact-big">
+
+    <span>LET'S</span>
+
+    <span class="outline">
+      MAKE
+    </span>
+
+    <span>THINGS.</span>
+
+  </div>
+
+  <a
+    class="contact-link"
+    href="mailto:hello@example.com"
+  >
+    hello@example.com ↗
+  </a>
+
+</section>
+
+
+<footer>
+
+  <span>
+    © 2026 RETAJ
+  </span>
+
+  <span>
+    DIGITAL SPACE / 001
+  </span>
+
+</footer>
+
+</div>
+
+
+<!-- =========================
+     THREE.JS
+========================= -->
+
+<script type="module">
+
+import * as THREE from
+"https://cdn.jsdelivr.net/npm/three@0.161.0/build/three.module.js";
+
+
+/* =========================
+   CURSOR
+========================= */
+
+const cursor =
+document.querySelector(".cursor");
+
+const ring =
+document.querySelector(".cursor-ring");
+
+let mouseX = window.innerWidth / 2;
+let mouseY = window.innerHeight / 2;
+
+let ringX = mouseX;
+let ringY = mouseY;
+
+window.addEventListener("mousemove",(e)=>{
+
+  mouseX = e.clientX;
+  mouseY = e.clientY;
+
+  cursor.style.left = mouseX + "px";
+  cursor.style.top = mouseY + "px";
+
+});
+
+
+function cursorLoop(){
+
+  ringX += (mouseX - ringX) * .12;
+  ringY += (mouseY - ringY) * .12;
+
+  ring.style.left = ringX + "px";
+  ring.style.top = ringY + "px";
+
+  requestAnimationFrame(cursorLoop);
+
+}
+
+cursorLoop();
+
+
+document.querySelectorAll("a,button,.project,.experiment")
+.forEach(el=>{
+
+  el.addEventListener("mouseenter",()=>{
+    ring.classList.add("big");
+  });
+
+  el.addEventListener("mouseleave",()=>{
+    ring.classList.remove("big");
+  });
+
+});
+
+
+/* =========================
+   THREE SCENE
+========================= */
+
+const container =
+document.getElementById("three-container");
+
+const scene =
+new THREE.Scene();
+
+scene.fog =
+new THREE.FogExp2(0x030305,.035);
+
+
+const camera =
+new THREE.PerspectiveCamera(
+  55,
+  window.innerWidth / window.innerHeight,
+  .1,
+  100
+);
+
+camera.position.set(0,0,8);
+
+
+const renderer =
+new THREE.WebGLRenderer({
+  antialias:true,
+  alpha:true
+});
+
+renderer.setPixelRatio(
+  Math.min(window.devicePixelRatio,2)
+);
+
+renderer.setSize(
+  window.innerWidth,
+  window.innerHeight
+);
+
+renderer.outputColorSpace =
+THREE.SRGBColorSpace;
+
+container.appendChild(renderer.domElement);
+
+
+/* =========================
+   LIGHTS
+========================= */
+
+const ambient =
+new THREE.AmbientLight(
+  0xffffff,
+  .25
+);
+
+scene.add(ambient);
+
+
+const cyanLight =
+new THREE.PointLight(
+  0x69f7ff,
+  20,
+  25
+);
+
+cyanLight.position.set(
+  4,
+  2,
+  5
+);
+
+scene.add(cyanLight);
+
+
+const violetLight =
+new THREE.PointLight(
+  0x8667ff,
+  18,
+  25
+);
+
+violetLight.position.set(
+  -4,
+  -2,
+  3
+);
+
+scene.add(violetLight);
+
+
+/* =========================
+   MAIN ARTIFACT
+========================= */
+
+const artifact =
+new THREE.Group();
+
+scene.add(artifact);
+
+
+const coreGeometry =
+new THREE.IcosahedronGeometry(
+  2.25,
+  2
+);
+
+const coreMaterial =
+new THREE.MeshPhysicalMaterial({
+  color:0x080a10,
+  metalness:.9,
+  roughness:.18,
+  transmission:.15,
+  transparent:true,
+  opacity:.95
+});
+
+const core =
+new THREE.Mesh(
+  coreGeometry,
+  coreMaterial
+);
+
+artifact.add(core);
+
+
+/* WIREFRAME */
+
+const wireGeometry =
+new THREE.IcosahedronGeometry(
+  2.38,
+  2
+);
+
+const wireMaterial =
+new THREE.MeshBasicMaterial({
+  color:0x69f7ff,
+  wireframe:true,
+  transparent:true,
+  opacity:.22
+});
+
+const wire =
+new THREE.Mesh(
+  wireGeometry,
+  wireMaterial
+);
+
+artifact.add(wire);
+
+
+/* INNER OBJECT */
+
+const innerGeometry =
+new THREE.TorusKnotGeometry(
+  1.05,
+  .16,
+  140,
+  18,
+  2,
+  3
+);
+
+const innerMaterial =
+new THREE.MeshStandardMaterial({
+  color:0x8667ff,
+  metalness:.8,
+  roughness:.2,
+  emissive:0x21105c,
+  emissiveIntensity:2
+});
+
+const inner =
+new THREE.Mesh(
+  innerGeometry,
+  innerMaterial
+);
+
+artifact.add(inner);
+
+
+/* RINGS */
+
+for(let i=0;i<3;i++){
+
+  const ringGeometry =
+  new THREE.TorusGeometry(
+    3 + i*.55,
+    .008,
+    8,
+    160
+  );
+
+  const ringMaterial =
+  new THREE.MeshBasicMaterial({
+    color:
+      i===1
+      ? 0xff48c8
+      : 0x69f7ff,
+    transparent:true,
+    opacity:.32
+  });
+
+  const ring =
+  new THREE.Mesh(
+    ringGeometry,
+    ringMaterial
+  );
+
+  ring.rotation.x =
+    Math.PI*.3 + i*.4;
+
+  ring.rotation.y =
+    i*.6;
+
+  artifact.add(ring);
+
+}
+
+
+/* =========================
+   PARTICLES
+========================= */
+
+const particleCount = 2200;
+
+const positions =
+new Float32Array(
+  particleCount * 3
+);
+
+for(let i=0;i<particleCount;i++){
+
+  const radius =
+    7 + Math.random()*13;
+
+  const theta =
+    Math.random()*Math.PI*2;
+
+  const phi =
+    Math.acos(
+      2*Math.random()-1
+    );
+
+  positions[i*3] =
+    radius *
+    Math.sin(phi) *
+    Math.cos(theta);
+
+  positions[i*3+1] =
+    radius *
+    Math.sin(phi) *
+    Math.sin(theta);
+
+  positions[i*3+2] =
+    radius *
+    Math.cos(phi);
+
+}
+
+
+const particleGeometry =
+new THREE.BufferGeometry();
+
+particleGeometry.setAttribute(
+  "position",
+  new THREE.BufferAttribute(
+    positions,
+    3
+  )
+);
+
+
+const particleMaterial =
+new THREE.PointsMaterial({
+  color:0x8ca7ff,
+  size:.025,
+  transparent:true,
+  opacity:.7,
+  sizeAttenuation:true
+});
+
+
+const particles =
+new THREE.Points(
+  particleGeometry,
+  particleMaterial
+);
+
+scene.add(particles);
+
+
+/* =========================
+   MOUSE PARALLAX
+========================= */
+
+let targetX = 0;
+let targetY = 0;
+
+window.addEventListener(
+  "mousemove",
+  (e)=>{
+
+    targetX =
+      (e.clientX /
+      window.innerWidth -.5);
+
+    targetY =
+      (e.clientY /
+      window.innerHeight -.5);
+
+  }
+);
+
+
+/* =========================
+   ENTER EXPERIENCE
+========================= */
+
+const intro =
+document.getElementById("intro");
+
+const enterButton =
+document.getElementById("enterButton");
+
+let entered = false;
+
+enterButton.addEventListener(
+  "click",
+  ()=>{
+
+    entered = true;
+
+    intro.classList.add("hidden");
+
+    artifact.scale.set(
+      .25,.25,.25
+    );
+
+    artifact.position.z =
+      -2;
+
+    setTimeout(()=>{
+
+      window.scrollTo({
+        top:0,
+        behavior:"smooth"
+      });
+
+    },100);
+
+  }
+);
+
+
+/* =========================
+   ANIMATION
+========================= */
+
+const clock =
+new THREE.Clock();
+
+
+function animate(){
+
+  requestAnimationFrame(animate);
+
+  const time =
+    clock.getElapsedTime();
+
+
+  /* ARTIFACT */
+
+  artifact.rotation.y =
+    time*.13;
+
+  artifact.rotation.x =
+    Math.sin(time*.4)*.12;
+
+
+  wire.rotation.y =
+    -time*.08;
+
+  wire.rotation.z =
+    time*.05;
+
+
+  inner.rotation.x =
+    time*.35;
+
+  inner.rotation.y =
+    time*.5;
+
+
+  artifact.children.forEach(
+    (child,index)=>{
+
+      if(index>=3){
+
+        child.rotation.z =
+          time*(.08+index*.02);
+
+      }
+
+    }
+  );
+
+
+  /* PARTICLES */
+
+  particles.rotation.y =
+    time*.012;
+
+  particles.rotation.x =
+    Math.sin(time*.05)*.08;
+
+
+  /* MOUSE */
+
+  camera.position.x +=
+    (targetX*.8 -
+    camera.position.x)*.025;
+
+  camera.position.y +=
+    (-targetY*.55 -
+    camera.position.y)*.025;
+
+  camera.lookAt(
+    0,
+    0,
+    0
+  );
+
+
+  /* ENTER ANIMATION */
+
+  if(entered){
+
+    artifact.scale.lerp(
+      new THREE.Vector3(
+        1,1,1
+      ),
+      .025
+    );
+
+    artifact.position.z +=
+      (-0-artifact.position.z)*.025;
+
+  }
+
+
+  renderer.render(
+    scene,
+    camera
+  );
+
+}
+
+animate();
+
+
+/* =========================
+   RESIZE
+========================= */
+
+window.addEventListener(
+  "resize",
+  ()=>{
+
+    camera.aspect =
+      window.innerWidth /
+      window.innerHeight;
+
+    camera.updateProjectionMatrix();
+
+    renderer.setSize(
+      window.innerWidth,
+      window.innerHeight
+    );
+
+  }
+);
+
+</script>
+
+
+<!-- =========================
+     EXTRA INTERACTIONS
+========================= -->
+
+<script>
+
+const projects =
+document.querySelectorAll(".project");
+
+projects.forEach((project,index)=>{
+
+  project.addEventListener(
+    "mousemove",
+    (e)=>{
+
+      if(window.innerWidth < 800)
+        return;
+
+      const rect =
+        project.getBoundingClientRect();
+
+      const x =
+        e.clientX - rect.left;
+
+      const y =
+        e.clientY - rect.top;
+
+      const rotateY =
+        ((x / rect.width)-.5)*8;
+
+      const rotateX =
+        ((y / rect.height)-.5)*-8;
+
+      project.style.transform =
+        `
+        perspective(1000px)
+        rotateX(${rotateX}deg)
+        rotateY(${rotateY}deg)
+        translateY(-8px)
+        `;
+
+    }
+  );
+
+
+  project.addEventListener(
+    "mouseleave",
+    ()=>{
+
+      project.style.transform =
+        "";
+
+    }
+  );
+
+});
+
+
+/* SCROLL-BASED HERO MOVEMENT */
+
+const hero =
+document.getElementById("hero");
+
+window.addEventListener(
+  "scroll",
+  ()=>{
+
+    const scroll =
+      window.scrollY;
+
+    if(scroll <
+      window.innerHeight){
+
+      const progress =
+        scroll /
+        window.innerHeight;
+
+      hero.style.transform =
+        `scale(${1-progress*.04})`;
+
+      hero.style.opacity =
+        Math.max(
+          .25,
+          1-progress*.8
+        );
+
+    }
+
+  }
+);
+
+</script>
+
+</body>
+</html>
